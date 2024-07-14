@@ -1,0 +1,24 @@
+/* Slider.css */
+
+/* Styling for slider images */
+.slider-image {
+    height: 400px; /* Adjust height as needed */
+    object-fit: cover; /* Ensure images cover the entire carousel item */
+  }
+  
+  /* Styling for slider captions */
+  .slider-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background for captions */
+    color: white; /* White text color */
+    padding: 20px; /* Padding around the caption */
+    text-align: center; /* Center align text */
+  }
+  
+  .slider-caption h3 {
+    font-size: 2.5rem; /* Heading font size */
+  }
+  
+  .slider-caption p {
+    font-size: 1.5rem; /* Paragraph font size */
+  }
+  

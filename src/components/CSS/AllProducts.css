@@ -1,0 +1,53 @@
+/* src/components/AllProducts.css */
+
+.products-container {
+  padding: 20px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 10px;
+  transition: transform 0.3s ease;
+  height: 320px; /* Set a fixed height for consistent card size */
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card .card {
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 100%; /* Ensure the card takes full height of its container */
+}
+
+.product-card .card-body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Ensure card body takes full height */
+}
+
+.product-card .card-img-top {
+  height: 150px; /* Set a fixed height for the image */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: auto; /* Push buttons to the bottom */
+}
+
+.button-container .btn {
+  margin: 5px;
+}

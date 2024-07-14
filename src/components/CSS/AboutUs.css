@@ -1,0 +1,36 @@
+/* src/components/AboutUs.css */
+
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .mb-2 {
+    margin-bottom: 0.75rem;
+  }
+  
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .rounded {
+    border-radius: 0.25rem;
+  }
+  
+  .rounded-circle {
+    border-radius: 50%;
+  }
+  
+  h5 {
+    margin-top: 1rem;
+  }
+  
