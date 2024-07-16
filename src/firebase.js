@@ -5,14 +5,14 @@ import { getStorage } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCyQlCoz24uneDDBhvItcxfCcklwPJxP1s",
-  authDomain: "freshgreenery-9a32b.firebaseapp.com",
-  databaseURL: "https://freshgreenery-9a32b-default-rtdb.firebaseio.com",
-  projectId: "freshgreenery-9a32b",
-  storageBucket: "freshgreenery-9a32b.appspot.com",
+  apiKey: "AIzaSyDjjy9okA4zLvDhXlVgV2JnNVEWh0n0q3Q",
+  // authDomain: "freshgreenery-9a32b.firebaseapp.com",
+  // databaseURL: "https://freshgreenery-9a32b-default-rtdb.firebaseio.com",
+  projectId: "evergreen-sabji-bazar",
+  storageBucket: "gs://evergreen-sabji-bazar.appspot.com",
   messagingSenderId: "236507358182",
-  appId: "1:236507358182:web:3a94b5cf385e2b14c36c27",
-  measurementId: "G-VERY8P93C7"
+  appId: "1:899294455155:android:78721a3bc10285e6901106",
+  // measurementId: "G-VERY8P93C7"
 };
 
 // Initialize Firebase
