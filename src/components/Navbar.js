@@ -144,11 +144,13 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                         {user ? (
                             <>
                                 <Nav.Link onClick={handleLogout} className="nav-link-custom">Logout</Nav.Link>
+                                <Nav.Link href="#cart" className="nav-link-custom"><FaShoppingCart /> My Cart</Nav.Link>
                             </>
                         ) : (
-                            <Nav.Link onClick={() => setShowLogin(true)} className="nav-link-custom">Login/Signup</Nav.Link>
+                            <>
+                                <Nav.Link onClick={() => setShowLogin(true)} className="nav-link-custom">Login/Signup</Nav.Link>
+                            </>
                         )}
-                        <Nav.Link href="#cart" className="nav-link-custom"><FaShoppingCart /> My Cart</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

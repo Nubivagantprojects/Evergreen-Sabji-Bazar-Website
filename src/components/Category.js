@@ -2,32 +2,34 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import './CSS/Category.css'; // Import custom CSS for styling
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 
-const categories = [
-  { id: 1, name: 'Vegetables', img: 'https://images.pexels.com/photos/4193809/pexels-photo-4193809.jpeg' },
-  { id: 2, name: 'Fruits', img: 'https://images.pexels.com/photos/5333607/pexels-photo-5333607.jpeg' },
-  { id: 3, name: 'Dairy', img: 'https://images.pexels.com/photos/4193809/pexels-photo-4193809.jpeg' },
-  { id: 4, name: 'Meat', img: 'https://images.pexels.com/photos/6287447/pexels-photo-6287447.jpeg' },
-  { id: 5, name: 'Seafood', img: 'https://images.pexels.com/photos/1581383/pexels-photo-1581383.jpeg' },
-  { id: 6, name: 'Bakery', img: 'https://images.pexels.com/photos/4193809/pexels-photo-4193809.jpeg' },
-  { id: 3, name: 'Dairy', img: 'https://images.pexels.com/photos/4193809/pexels-photo-4193809.jpeg' },
-  { id: 4, name: 'Meat', img: 'https://images.pexels.com/photos/6287447/pexels-photo-6287447.jpeg' },
-  { id: 5, name: 'Seafood', img: 'https://images.pexels.com/photos/1581383/pexels-photo-1581383.jpeg' },
-  { id: 6, name: 'Bakery', img: 'https://images.pexels.com/photos/4193809/pexels-photo-4193809.jpeg' },
-];
+const fetchCategories = async () => {
+  const categoriesCollection = collection(db, 'category');
+  console.log(categoriesCollection)
+  const categorySnapshot = await getDocs(categoriesCollection);
+  console.log(categorySnapshot)
+  const categoryList = categorySnapshot.docs.map(doc => ({
+    ...doc.data(),
+  }));
+  return categoryList;
+};
+const categories = await fetchCategories();
+console.log(categories)
 
 const Category = () => {
   return (
     <div className="category-container">
       <div className="category-slide">
         {categories.map(category => (
-          <div key={category.id} className="category-card">
+          <div key={category.cat_id} className="category-card">
             <Card className="category-card-inner">
               <div className="circle-img">
-                <Card.Img variant="top" src={category.img} />
+                <Card.Img variant="top" src={category.cat_img_url} />
               </div>
               <Card.Body>
-                <Card.Title>{category.name}</Card.Title>
+                <Card.Title>{category.cat_name}</Card.Title>
               </Card.Body>
             </Card>
           </div>
