@@ -1,5 +1,4 @@
-// src/components/Category.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import './CSS/Category.css'; // Import custom CSS for styling
 import { collection, getDocs } from 'firebase/firestore';
@@ -7,23 +6,30 @@ import { db } from '../firebase';
 
 const fetchCategories = async () => {
   const categoriesCollection = collection(db, 'category');
-  console.log(categoriesCollection)
   const categorySnapshot = await getDocs(categoriesCollection);
-  console.log(categorySnapshot)
   const categoryList = categorySnapshot.docs.map(doc => ({
+    id: doc.id,
     ...doc.data(),
   }));
   return categoryList;
 };
-const categories = await fetchCategories();
-console.log(categories)
 
 const Category = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const categoryList = await fetchCategories();
+      setCategories(categoryList);
+    };
+    getCategories();
+  }, []);
+
   return (
     <div className="category-container">
       <div className="category-slide">
         {categories.map(category => (
-          <div key={category.cat_id} className="category-card">
+          <div key={category.id} className="category-card">
             <Card className="category-card-inner">
               <div className="circle-img">
                 <Card.Img variant="top" src={category.cat_img_url} />

@@ -1,53 +1,86 @@
-/* src/components/AllProducts.css */
+* {
+  box-sizing: border-box;
+  /* Ensure all elements use border-box sizing */
+}
 
 .products-container {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .product-card {
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
-  border-radius: 8px;
-  padding: 10px;
+  background-color: #fff;
+  /* Background color for the card */
+  border-radius: 10px;
+  /* Rounded corners for the card */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Add shadow for depth */
   transition: transform 0.3s ease;
-  height: 320px; /* Set a fixed height for consistent card size */
+  /* Smooth transition */
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05);
+  /* Slightly enlarge on hover */
 }
 
-.product-card .card {
-  border: none;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 100%; /* Ensure the card takes full height of its container */
+.product-card img {
+  width: 100%;
+  height: 150px;
+  /* Fixed height for images */
+  object-fit: cover;
+  /* Ensure the image covers the area */
+  border-top-left-radius: 10px;
+  /* Match border radius */
+  border-top-right-radius: 10px;
+  /* Match border radius */
 }
 
 .product-card .card-body {
-  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%; /* Ensure card body takes full height */
+  height: 125px;
+  padding: 10px;
 }
 
-.product-card .card-img-top {
-  height: 150px; /* Set a fixed height for the image */
-  object-fit: cover; /* Maintain aspect ratio and cover the container */
+.product-card .card-title {
+  font-size: 1rem;
+  /* Ensure a fixed font size */
+  line-height: 1.2;
+  /* Adjust line height for title */
+  height: 2.4rem;
+  /* Fixed height for title */
+  overflow: hidden;
+  /* Hide overflow text */
+  white-space: nowrap;
+  /* Prevent text from wrapping */
+  text-overflow: ellipsis;
+  /* Add ellipsis for overflow text */
+  margin: 0;
+  /* Remove default margin */
+  padding: 0;
+  /* Remove default padding */
+}
+
+.product-card .card-text {
+  font-size: 0.9rem;
+  /* Ensure a fixed font size for price */
+  margin: 0;
+  /* Remove default margin */
+  padding: 0;
+  /* Remove default padding */
 }
 
 .button-container {
   display: flex;
-  justify-content: center;
-  margin-top: auto; /* Push buttons to the bottom */
-}
-
-.button-container .btn {
-  margin: 5px;
+  justify-content: space-between;
 }
