@@ -11,7 +11,7 @@ const MyAccount = () => {
   const currentUser = auth.currentUser;
   const userId = currentUser.uid;
   const [userData, setUserData] = useState(null);
-  const [addresses, setAddresses] = useState([]);
+  const [setAddresses] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -41,7 +41,7 @@ const MyAccount = () => {
     if (currentUser && userId) {
       fetchUserData();
     }
-  }, [currentUser, userId]);
+  }, [currentUser, userId,setAddresses]);
 
   if (!userData) {
     return <p>Loading...</p>;

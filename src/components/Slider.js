@@ -20,7 +20,7 @@ console.log(categories)
 
 const Slider = () => {
   return (
-    <Carousel>
+    <Carousel className='mt-3' style={{marginLeft:"30px",marginRight:"30px"}}>
       <Carousel.Item>
         <img
           className="d-block w-100 slider-image"

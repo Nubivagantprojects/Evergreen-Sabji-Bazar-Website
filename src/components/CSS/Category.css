@@ -20,9 +20,9 @@
 
 .category-card {
   flex: 0 0 auto;
-  transition: transform 0.3s ease; /* Smooth transition */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition */
   width: 170px; /* Adjust card width */
-  height: 190px; /* Fixed card height to ensure uniformity */
+  height: 200px; /* Fixed card height to ensure uniformity */
   margin-right: 10px; /* Adjust margin between cards */
   margin-top: 15px;
   background-color: #fff; /* Background color for the card */
@@ -33,6 +33,16 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+.category-card:hover {
+  transform: scale(1.003);
+  cursor: pointer;
+  /* Slightly enlarge on hover */
+}
+
+.category-card.selected {
+  background-color: #007bff; /* Change background color for selected card */
+  color: white; /* Change text color for selected card */
 }
 
 .category-card:last-child {
