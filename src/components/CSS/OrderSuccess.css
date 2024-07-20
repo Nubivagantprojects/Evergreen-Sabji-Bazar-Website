@@ -1,0 +1,44 @@
+/* OrderSuccess.css */
+.order-success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  .success-message {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .success-message h1 {
+    color: #28a745;
+    font-size: 2.5rem;
+  }
+  
+  .success-message p {
+    font-size: 1.25rem;
+    color: #6c757d;
+  }
+  
+  .product-card-success {
+    max-width: 400px;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .product-card-success img {
+    border-radius: 8px;
+  }
+  
+  .product-card-success .card-body {
+    text-align: center;
+  }
+  
+  .product-card-success .btn {
+    margin-top: 10px;
+  }
+  
