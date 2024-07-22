@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import './CSS/AllProducts.css'; // Import CSS file for styling
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const fetchProducts = async () => {
@@ -34,6 +34,38 @@ const AllProducts = ({ selectedCategory }) => {
   const handleBuyNow = (product) => {
     navigate(`/checkout/${product.id}`, { state: { product } });
   };
+  const handleCart = async (item) => {
+    const user_obj = localStorage.getItem("k45#45sed");
+    if (user_obj != null) {
+      const user = JSON.parse(user_obj);
+      try {
+        // Generate a unique ID for the new document
+        const docId = "C" + Date.now();
+        // Create the new document in the 'cart' collection
+        await setDoc(doc(db, 'cart', docId), {
+          amount: item.item_price,
+          id: docId,
+          isC: '1',
+          isD: '0',
+          isE: '1',
+          item: item.id,
+          item_img: item.item_img,
+          item_name: item.item_name,
+          order: "O" + Date.now(),
+          quantity: '1',
+          user: user.email,
+          z1: '',
+          z2: "",
+          z3: '',
+          z4: ''
+        });
+
+        console.log("Item added to cart with ID: ", docId);
+      } catch (error) {
+        console.error("Error adding item to cart: ", error);
+      }
+    }
+  };
 
   return (
     <div className="products-container">
@@ -62,6 +94,7 @@ const AllProducts = ({ selectedCategory }) => {
                     variant="outline-primary"
                     className='btn-sm'
                     size='sm'
+                    onClick={() => handleCart(product)}
                   >
                     Add to Cart
                   </Button>
