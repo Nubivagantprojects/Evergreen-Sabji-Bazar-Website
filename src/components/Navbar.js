@@ -26,6 +26,7 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
+            localStorage.setItem("k45#45sed",JSON.stringify(user));
         });
         return () => unsubscribe();
     }, []);
@@ -91,6 +92,7 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
     const handleLogout = async () => {
         try {
             await auth.signOut();
+            localStorage.removeItem("k45#45sed");
             // setAlert({ type: 'success', message: 'Successfully logged out!' });
             showAlertWithAutoDismiss('success', 'Successfully Logged out!');
         } catch (error) {
@@ -144,7 +146,7 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                         {user ? (
                             <>
                                 <Nav.Link onClick={handleLogout} className="nav-link-custom">Logout</Nav.Link>
-                                <Nav.Link href="#cart" className="nav-link-custom"><FaShoppingCart /> My Cart</Nav.Link>
+                                <Nav.Link href="./cart" className="nav-link-custom"><FaShoppingCart /> My Cart</Nav.Link>
                             </>
                         ) : (
                             <>

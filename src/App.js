@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AboutUs from './components/AboutUs';
 import MyAccount from './components/MyAccount';
+import MyCart from './components/Mycart';
 import ProductDetails from './components/ProductDetails';
 import Checkout from './components/Checkout';
 import OrderSuccess from './components/OrderSuccess';
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/" element={<Home categoriesRef={categoriesRef} productsRef={productsRef} scrollToSection={scrollToSection} />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/account" element={<MyAccount />} />
+          <Route path="/cart" element={<MyCart/>} />
           <Route path="/product/:productId" element={<ProductDetails />} />
           {/* <Route path="/checkout" element={<Checkout />} /> */}
           <Route path="/checkout/:productId" element={<Checkout />} />
