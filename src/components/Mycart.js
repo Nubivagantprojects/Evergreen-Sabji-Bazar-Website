@@ -53,6 +53,7 @@ const MyCart = () => {
 
         // Delete the document
         await deleteDoc(itemDocRef);
+        window.location.href="/cart"
     };
 
     const getTotal = () => {

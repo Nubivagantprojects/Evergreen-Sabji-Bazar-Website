@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import './CSS/AllProducts.css'; // Import CSS file for styling
 import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
@@ -17,6 +17,7 @@ const fetchProducts = async () => {
 
 const AllProducts = ({ selectedCategory }) => {
   const [products, setProducts] = useState([]);
+  const [alert, setAlert] = useState({ type: '', message: '' });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +35,14 @@ const AllProducts = ({ selectedCategory }) => {
   const handleBuyNow = (product) => {
     navigate(`/checkout/${product.id}`, { state: { product } });
   };
+
+  const showAlertWithAutoDismiss = (type, message) => {
+    setAlert({ type, message });
+    setTimeout(() => {
+      setAlert({ type: '', message: '' });
+    }, 1000); // Dismiss alert after 1 second (1000 milliseconds)
+  };
+
   const handleCart = async (item) => {
     const user_obj = localStorage.getItem("k45#45sed");
     if (user_obj != null) {
@@ -60,51 +69,62 @@ const AllProducts = ({ selectedCategory }) => {
           z4: ''
         });
 
+        showAlertWithAutoDismiss('success', 'Item added to cart');
         console.log("Item added to cart with ID: ", docId);
       } catch (error) {
+        showAlertWithAutoDismiss('danger', 'Error adding to cart');
         console.error("Error adding item to cart: ", error);
       }
+      window.location.href="/cart"
     }
   };
 
   return (
-    <div className="products-container">
-      <div className="products-grid">
-        {filteredProducts.map(product => (
-          <div key={product.id} className="product-card">
-            <Card>
-              <Link to={`/product/${product.id}`}>
-                <Card.Img variant="top" src={product.item_img} />
-              </Link>
-              <Card.Body>
-                <Card.Title>{product.item_name}</Card.Title>
-                <Card.Text>
-                  Price: ₹{product.item_price} {product.item_price_unit}
-                </Card.Text>
-                <div className="button-container">
-                  <Button
-                    variant="primary"
-                    className='btn-sm'
-                    size='sm'
-                    onClick={() => handleBuyNow(product)}
-                  >
-                    Buy Now
-                  </Button>
-                  <Button
-                    variant="outline-primary"
-                    className='btn-sm'
-                    size='sm'
-                    onClick={() => handleCart(product)}
-                  >
-                    Add to Cart
-                  </Button>
-                </div>
-              </Card.Body>
-            </Card>
-          </div>
-        ))}
+    <>
+      {alert.message && (
+        <Alert variant={alert.type} onClose={() => setAlert({ type: '', message: '' })} dismissible>
+          {alert.message}
+        </Alert>
+      )}
+      <div className="products-container">
+        <div className="products-grid">
+          {filteredProducts.map(product => (
+            <div key={product.id} className="product-card">
+              <Card>
+                <Link to={`/product/${product.id}`}>
+                  <Card.Img variant="top" src={product.item_img} />
+                </Link>
+                <Card.Body>
+                  <Card.Title>{product.item_name}</Card.Title>
+                  <Card.Text>
+                    Price: ₹{product.item_price} {product.item_price_unit}
+                  </Card.Text>
+                  <div className="button-container">
+                    <Button
+                      variant="primary"
+                      className='btn-sm'
+                      size='sm'
+                      onClick={() => handleBuyNow(product)}
+                    >
+                      Buy Now
+                    </Button>
+                    <Button
+                      variant="outline-primary"
+                      className='btn-sm'
+                      size='sm'
+                      onClick={() => handleCart(product)}
+                    >
+                      Add to Cart
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
+
   );
 };
 
