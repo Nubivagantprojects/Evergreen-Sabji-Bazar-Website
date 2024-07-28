@@ -1,0 +1,34 @@
+/* src/components/ContactUs.css */
+
+.contact {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  
+    button[type="submit"] {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+  

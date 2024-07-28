@@ -1,3 +1,4 @@
+// src/components/AboutUs.js
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import './CSS/AboutUs.css'; // Import CSS file for styling
@@ -5,23 +6,17 @@ import './CSS/AboutUs.css'; // Import CSS file for styling
 const AboutUs = () => {
   return (
     <Container className="py-4">
-      <h1 className="text-center mb-4">About Us</h1>
+      <h1 className="text-center mb-4">About Evergreen Sabji Bazar</h1>
       <Row className="mb-4">
         <Col md={6}>
           <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080" className="img-fluid rounded" alt="About Us" />
         </Col>
         <Col md={6}>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam porttitor orci justo, sit amet consequat
-            magna maximus a. Nulla facilisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-            cubilia Curae; Curabitur varius odio ut metus vehicula, quis convallis felis ullamcorper.
+            At Evergreen Sabji Bazar, we are dedicated to providing the freshest and highest quality fruits and vegetables to our customers. Located in the heart of Hazaribagh, we take pride in offering a wide variety of produce, ensuring that our customers have access to nutritious and delicious options every day.
           </p>
           <p>
-            Suspendisse potenti. Quisque commodo efficitur tellus, non mollis nunc blandit ac. Aenean posuere lectus
-            quis orci convallis, nec euismod lorem tristique. Nullam vel urna nec ante efficitur convallis. Ut
-            vestibulum urna a sapien ullamcorper laoreet. Integer ut ex rutrum, congue velit at, laoreet ex. Proin
-            quis sollicitudin nulla. Sed lacinia velit in ligula efficitur, nec blandit ex malesuada. Quisque ac urna
-            vitae velit tincidunt vehicula. Vivamus lacinia pellentesque eros, at mattis eros efficitur sit amet.
+            Our commitment to quality is matched only by our passion for exceptional customer service. Whether you are shopping in-store or online, our goal is to make your experience as convenient and enjoyable as possible. We believe that fresh produce is a key component of a healthy lifestyle, and we are here to make that accessible to everyone.
           </p>
         </Col>
       </Row>
@@ -30,14 +25,10 @@ const AboutUs = () => {
       <Row className="mb-4">
         <Col md={12}>
           <p>
-            Evergreen Sabji Bazar was founded in [Year] with the mission to provide fresh and quality produce to our
-            customers. Over the years, we have grown from a small local market to a well-known name in the community.
-            Our commitment to quality and customer satisfaction has been the cornerstone of our success.
+            Evergreen Sabji Bazar was founded with the vision of bringing farm-fresh produce to the people of Hazaribagh. Since our establishment, we have been dedicated to sourcing the best fruits and vegetables from local farmers, ensuring that our products are both fresh and sustainable. Our journey began as a small market, and through hard work and community support, we have grown into a trusted name in the region.
           </p>
           <p>
-            From humble beginnings, we have expanded our services and reach, continually adapting to the needs of our
-            customers. Our history is a testament to our dedication and hard work, and we are proud to serve our
-            community with the best products available.
+            Our history is a story of growth and commitment. From humble beginnings, we have continuously expanded our offerings and services to meet the evolving needs of our customers. We are proud to be a part of the Hazaribagh community and look forward to serving you for many more years to come.
           </p>
         </Col>
       </Row>
@@ -45,19 +36,19 @@ const AboutUs = () => {
       <h2 className="text-center mb-4">Our Team</h2>
       <Row className="mb-4">
         <Col md={4}>
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080" className="img-fluid rounded-circle mb-2" alt="Team Member 1" />
-          <h5 className="text-center">John Doe</h5>
-          <p className="text-center">CEO</p>
+          <img src="https://firebasestorage.googleapis.com/v0/b/evergreen-sabji-bazar.appspot.com/o/istockphoto-1364917563-612x612.jpg?alt=media&token=e190f281-29b1-4973-b100-8880a30b4cbc" className="img-fluid rounded-circle mb-2" alt="Team Member 1" />
+          <h5 className="text-center">Dinesh Kumar</h5>
+          <p className="text-center">Founder & CEO</p>
         </Col>
         <Col md={4}>
-          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080" className="img-fluid rounded-circle mb-2" alt="Team Member 2" />
-          <h5 className="text-center">Jane Smith</h5>
-          <p className="text-center">COO</p>
+          <img src="https://firebasestorage.googleapis.com/v0/b/evergreen-sabji-bazar.appspot.com/o/pexels-olly-733872.jpg?alt=media&token=0d7d114d-a047-4367-b56b-dfbdda36f39e" className="img-fluid rounded-circle mb-2" alt="Team Member 2" />
+          <h5 className="text-center">Anjali Singh</h5>
+          <p className="text-center">Chief Operating Officer</p>
         </Col>
         <Col md={4}>
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080" className="img-fluid rounded-circle mb-2" alt="Team Member 3" />
-          <h5 className="text-center">Emily Johnson</h5>
-          <p className="text-center">CFO</p>
+          <img src="https://firebasestorage.googleapis.com/v0/b/evergreen-sabji-bazar.appspot.com/o/average-height-in-men-in-india_900.jpg?alt=media&token=c07f5287-9f52-49d6-906d-7f773ba7e61d" className="img-fluid rounded-circle mb-2" alt="Team Member 3" />
+          <h5 className="text-center">Rahul Sharma</h5>
+          <p className="text-center">Chief Financial Officer</p>
         </Col>
       </Row>
 
@@ -66,30 +57,25 @@ const AboutUs = () => {
         <Col md={6}>
           <h5>Fresh Produce Delivery</h5>
           <p>
-            We offer delivery services to bring fresh and quality produce right to your doorstep. Our delivery service
-            ensures that you get the best products without having to leave the comfort of your home.
+            We provide a convenient delivery service, bringing the freshest produce directly to your door. Our team carefully selects and packs your order, ensuring that you receive only the best fruits and vegetables.
           </p>
         </Col>
         <Col md={6}>
-          <h5>Online Ordering</h5>
+          <h5>Online Shopping</h5>
           <p>
-            Our online platform allows you to browse and order from our extensive selection of products. With a few
-            clicks, you can have everything you need delivered to you, making shopping more convenient than ever.
+            Browse our extensive range of products from the comfort of your home with our easy-to-use online shopping platform. We offer a seamless shopping experience, with secure payment options and timely delivery.
           </p>
         </Col>
         <Col md={6}>
           <h5>Custom Orders</h5>
           <p>
-            We understand that every customer has unique needs. That’s why we offer custom orders to ensure you get
-            exactly what you want. Whether you need a special mix of produce or specific quantities, we are here to
-            help.
+            Need something specific? We cater to custom orders to meet your unique requirements. Whether it’s for a special event or a large family gathering, we’re here to help you find exactly what you need.
           </p>
         </Col>
         <Col md={6}>
-          <h5>Community Support</h5>
+          <h5>Community Engagement</h5>
           <p>
-            As a local business, we are committed to supporting our community. We regularly participate in local
-            events and provide support to community initiatives, helping to make our community a better place.
+            Evergreen Sabji Bazar is more than just a market; we're a part of the community. We actively participate in local events and support various community initiatives, promoting healthy eating and sustainable practices.
           </p>
         </Col>
       </Row>

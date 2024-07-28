@@ -151,18 +151,10 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                 </Alert>
             )}
             <Navbar bg="dark" variant="dark" expand="lg" className="custom-navbar">
-                <Navbar.Brand href="#home" className="navbar-brand-custom">Evergreen Sabji Bazar</Navbar.Brand>
+                <Navbar.Brand style={{marginLeft:"35px"}}  href="#home" className="navbar-brand-custom">Evergreen Sabji Bazar</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    {/* <Nav className="mr-auto">
-                        <Nav.Link as={Link} to="/" className="nav-link-custom">Home</Nav.Link>
-                        <Nav.Link href="#categories" className="nav-link-custom">Categories</Nav.Link>
-                        <Nav.Link href="#products" className="nav-link-custom">All Products</Nav.Link>
-                        <Nav.Link as={Link} to="/about" className="nav-link-custom">About Us</Nav.Link>
-                        {user && <Nav.Link href="#account" className="nav-link-custom">My Account</Nav.Link>}
-                        <Nav.Link href="#contact" className="nav-link-custom">Contact</Nav.Link>
-                    </Nav> */}
-                    <Nav className="mr-auto">
+                    <Nav className="mr-auto" style={{marginLeft:"35px"}} >
                         <Nav.Link as={Link} to="/" className="nav-link-custom">Home</Nav.Link>
                         <Nav.Link onClick={() => scrollToSection(categoriesRef)} className="nav-link-custom">Categories</Nav.Link>
                         <Nav.Link onClick={() => scrollToSection(productsRef)} className="nav-link-custom">All Products</Nav.Link>
@@ -170,15 +162,15 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                         {user && <Nav.Link as={Link} to="/account" className="nav-link-custom">My Account</Nav.Link>}
                         <Nav.Link as={Link} to="/contact" className="nav-link-custom">Contact</Nav.Link>
                     </Nav>
-                    <Form inline className="search-form-custom">
+                    <Form style={{marginLeft:"35px"}}  inline className="search-form-custom">
                         <FormControl type="text" placeholder="Search" className="mr-sm-2 search-bar-custom" />
                         <Button variant="outline-success" className="search-button-custom m-2">Search</Button>
                     </Form>
-                    <Nav>
+                    <Nav style={{marginLeft:"35px"}} >
                         {user ? (
                             <>
                                 <Nav.Link onClick={handleLogout} className="nav-link-custom">Logout</Nav.Link>
-                                <Nav.Link href="./cart" className="nav-link-custom"><FaShoppingCart /> My Cart <sup>{count}</sup> </Nav.Link>
+                                <Nav.Link href="./cart" className="nav-link-custom text-danger"><FaShoppingCart /> My Cart <sup>{count}</sup> </Nav.Link>
                             </>
                         ) : (
                             <>

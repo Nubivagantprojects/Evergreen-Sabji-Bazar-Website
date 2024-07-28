@@ -27,7 +27,7 @@ const MyCart = () => {
             setCart(cartList);
         };
         getCart();
-    }, []);
+    }, [user.email]);
 
     const handleQuantityChange = async (id, delta) => {
         setCart(cart.map(item =>

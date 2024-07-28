@@ -1,6 +1,6 @@
 // src/components/ProductDetails.js
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Card, Button, Carousel,Alert } from 'react-bootstrap';
@@ -10,6 +10,7 @@ const ProductDetails = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [alert, setAlert] = useState({ type: '', message: '' });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,6 +35,10 @@ const ProductDetails = () => {
     setTimeout(() => {
       setAlert({ type: '', message: '' });
     }, 1000); // Dismiss alert after 1 second (1000 milliseconds)
+  };
+
+  const handleBuyNow = (product) => {
+    navigate(`/checkout/${product.id}`, { state: { product } });
   };
 
   const handleCart = async (item) => {
@@ -68,6 +73,7 @@ const ProductDetails = () => {
         showAlertWithAutoDismiss('danger', 'Error adding to cart');
         console.error("Error adding item to cart: ", error);
       }
+      window.location.href="/cart"
     }
   };
 
@@ -101,7 +107,7 @@ const ProductDetails = () => {
             {/* <Card.Text>Unit: {product.item_price_unit}</Card.Text> */}
             <Card.Text>{product.item_desc}</Card.Text>
             <div className="button-container">
-              <Button variant="primary" className='btn-sm' size="sm">Buy Now</Button>
+              <Button variant="primary" className='btn-sm' size="sm" onClick={() => handleBuyNow(product)}>Buy Now</Button>
               <Button variant="outline-primary" className='btn-sm' size="sm" onClick={() => handleCart(product)}>Add to Cart</Button>
             </div>
           </Card.Body>

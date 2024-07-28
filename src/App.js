@@ -16,6 +16,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import CancellationRefundPolicy from './components/CancellationRefundPolicy';
 import TermsAndConditions from './components/TermsAndConditions';
 import ScrollToTop from './components/ScrollToTop';
+import ContactUs from './components/ContactUs';
 
 const App = () => {
   const categoriesRef = useRef(null);
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/cancellation-refund-policy" element={<CancellationRefundPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/contact" element={<ContactUs />} />
         </Routes>
         <Footer />
       </div>
