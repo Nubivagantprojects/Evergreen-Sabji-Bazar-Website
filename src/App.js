@@ -12,6 +12,10 @@ import MyCart from './components/Mycart';
 import ProductDetails from './components/ProductDetails';
 import Checkout from './components/Checkout';
 import OrderSuccess from './components/OrderSuccess';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import CancellationRefundPolicy from './components/CancellationRefundPolicy';
+import TermsAndConditions from './components/TermsAndConditions';
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
   const categoriesRef = useRef(null);
@@ -26,6 +30,7 @@ const App = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <div>
         <CustomNavbar
           scrollToSection={scrollToSection}
@@ -41,6 +46,9 @@ const App = () => {
           {/* <Route path="/checkout" element={<Checkout />} /> */}
           <Route path="/checkout/:productId" element={<Checkout />} />
           <Route path="/order-success" element={<OrderSuccess />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/cancellation-refund-policy" element={<CancellationRefundPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         </Routes>
         <Footer />
       </div>
