@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Form, FormControl, Button, Modal, Alert } from 'react-bootstrap';
 import { auth } from '../firebase'; // Assuming you have auth imported correctly from your firebase configuration
 import { db } from '../firebase'; // Import Firestore from Firebase
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, query, where, getCountFromServer } from 'firebase/firestore';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'; // Import Firebase auth functions
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -22,14 +22,46 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
     const [signupPhone, setSignupPhone] = useState('');
     const [user, setUser] = useState(null);
     const [alert, setAlert] = useState({ type: '', message: '' });
+    const [count, setCount] = useState(0);
 
+
+    const countcart = async () => {
+        const user_obj = localStorage.getItem("k45#45sed");
+        const user = JSON.parse(user_obj);
+
+        if (user) {
+            try {
+                const cartCollectionRef = collection(db, 'cart');
+
+                // Create a query against the collection for a specific user
+                const userQuery = query(cartCollectionRef, where('isC', '==', "1"), where('user', '==', user.email));
+
+                // Get the document count
+                const snapshot = await getCountFromServer(userQuery);
+
+                // Extract the count
+                const count = snapshot.data().count;
+                setCount(count);
+            } catch (error) {
+                console.error("Error getting document count: ", error);
+            }
+        }
+        else{
+            setCount(0)
+        }
+
+    }
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
-            localStorage.setItem("k45#45sed",JSON.stringify(user));
+            localStorage.setItem("k45#45sed", JSON.stringify(user));
         });
+        
         return () => unsubscribe();
     }, []);
+    useEffect(()=>{
+        countcart();
+    })
 
     // Function to show alert and automatically dismiss after 1 second
     const showAlertWithAutoDismiss = (type, message) => {
@@ -146,7 +178,7 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                         {user ? (
                             <>
                                 <Nav.Link onClick={handleLogout} className="nav-link-custom">Logout</Nav.Link>
-                                <Nav.Link href="./cart" className="nav-link-custom"><FaShoppingCart /> My Cart</Nav.Link>
+                                <Nav.Link href="./cart" className="nav-link-custom"><FaShoppingCart /> My Cart <sup>{count}</sup> </Nav.Link>
                             </>
                         ) : (
                             <>
