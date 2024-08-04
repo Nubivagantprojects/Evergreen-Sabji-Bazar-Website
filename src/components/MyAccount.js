@@ -1,47 +1,64 @@
 import React, { useEffect, useState } from 'react';
-import { auth } from '../firebase'; // Assuming you have a custom hook for Firebase authentication
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../firebase'; // Importing your Firebase instance
+import { auth, db } from '../firebase'; // Import Firebase authentication and Firestore instance
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import './CSS/MyAccount.css';
-
-import AddNewAddress from './AddNewAddress';
 import EditUserDetails from './EditUserDetails';
+import ChangePassword from './ChangePassword'; // Component for changing password
 
 const MyAccount = () => {
   const currentUser = auth.currentUser;
-  const userId = currentUser.uid;
+  const userEmail = currentUser?.email;
   const [userData, setUserData] = useState(null);
-  const [setAddresses] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Create a query to get the user document by uid
-        const userQuery = query(collection(db, 'users'), where('uid', '==', userId));
-        const querySnapshot = await getDocs(userQuery);
+        if (userEmail) {
+          // Fetch user data using email as document ID
+          const userDocRef = doc(db, 'user', userEmail);
+          const docSnap = await getDoc(userDocRef);
 
-        // Check if the document exists
-        if (!querySnapshot.empty) {
-          // Since uid should be unique, we expect only one document
-          const userDoc = querySnapshot.docs[0].data();
-          setUserData(userDoc);
-
-          // Fetch addresses subcollection
-          const addressesSnapshot = await getDocs(collection(db, 'users', userId, 'addresses'));
-          const addressesList = addressesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          setAddresses(addressesList);
-        } else {
-          console.log('No matching documents.');
+          if (docSnap.exists()) {
+            setUserData(docSnap.data());
+          } else {
+            console.log('No user document found.');
+          }
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
 
-    if (currentUser && userId) {
+    if (currentUser) {
       fetchUserData();
     }
-  }, [currentUser, userId,setAddresses]);
+  }, [currentUser, userEmail]);
+
+  const handleUserUpdate = async (updatedData) => {
+    try {
+      const userDocRef = doc(db, 'user', userEmail);
+      await updateDoc(userDocRef, updatedData);
+      setUserData(prevData => ({ ...prevData, ...updatedData }));
+    } catch (error) {
+      console.error('Error updating user data:', error);
+    }
+  };
+
+  const handleEditToggle = () => {
+    setIsEditing(prev => !prev);
+    if (isChangingPassword) {
+      setIsChangingPassword(false);
+    }
+  };
+
+  const handlePasswordToggle = () => {
+    setIsChangingPassword(prev => !prev);
+    if (isEditing) {
+      setIsEditing(false);
+    }
+  };
 
   if (!userData) {
     return <p>Loading...</p>;
@@ -51,15 +68,31 @@ const MyAccount = () => {
     <div className="my-account-container">
       <h2>My Account</h2>
       <p><span>Email:</span> {userData.email}</p>
-      <p><span>Name:</span> {userData.firstName} {userData.lastName}</p>
+      <p><span>Name:</span> {userData.customername}</p>
       <p><span>Phone:</span> {userData.phone}</p>
+      <p><span>Gender:</span> {userData.gender}</p>
+      <p><span>PIN:</span> {userData.pin}</p>
+      <p><span>Country:</span> {userData.country}</p>
+      <p><span>State:</span> {userData.state}</p>
+      <p><span>District:</span> {userData.dist}</p>
+      <p><span>Locality:</span> {userData.locality}</p>
+      <p><span>Address:</span> {userData.add1}</p>
       {/* Add more fields as needed */}
 
-      {/* Edit User Details Component */}
-      <EditUserDetails userId={userId} userData={userData} onUpdate={setUserData} />
+      <button onClick={handleEditToggle}>
+        {isEditing ? 'Cancel Editing' : 'Edit Details'}
+      </button>
+      <button onClick={handlePasswordToggle}>
+        {isChangingPassword ? 'Cancel Change Password' : 'Change Password'}
+      </button>
 
-      {/* Add New Address Component */}
-      <AddNewAddress userId={currentUser.uid} />
+      {isEditing && (
+        <EditUserDetails userData={userData} onUpdate={handleUserUpdate} />
+      )}
+
+      {isChangingPassword && (
+        <ChangePassword />
+      )}
     </div>
   );
 };
@@ -67,48 +100,66 @@ const MyAccount = () => {
 export default MyAccount;
 
 // import React, { useEffect, useState } from 'react';
-// import { auth } from '../firebase'; // Assuming you have a custom hook for Firebase authentication
-// import { collection, query, where, getDocs } from 'firebase/firestore';
-// import { db } from '../firebase'; // Importing your Firebase instance
+// import { auth, db } from '../firebase'; // Import Firebase authentication and Firestore instance
+// import { doc, getDoc, updateDoc } from 'firebase/firestore';
 // import './CSS/MyAccount.css';
-
-// import AddNewAddress from './AddNewAddress';
+// import EditUserDetails from './EditUserDetails';
+// import ChangePassword from './ChangePassword'; // Component for changing password
 
 // const MyAccount = () => {
 //   const currentUser = auth.currentUser;
-//   const userId = currentUser.uid;
+//   const userEmail = currentUser?.email;
 //   const [userData, setUserData] = useState(null);
-//   const [addresses, setAddresses] = useState([]);
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [isChangingPassword, setIsChangingPassword] = useState(false);
 
 //   useEffect(() => {
 //     const fetchUserData = async () => {
 //       try {
-//         // Create a query to get the user document by uid
-//         const userQuery = query(collection(db, 'users'), where('uid', '==', userId));
-//         const querySnapshot = await getDocs(userQuery);
+//         if (userEmail) {
+//           // Fetch user data using email as document ID
+//           const userDocRef = doc(db, 'user', userEmail);
+//           const docSnap = await getDoc(userDocRef);
 
-//         // Check if the document exists
-//         if (!querySnapshot.empty) {
-//           // Since uid should be unique, we expect only one document
-//           const userDoc = querySnapshot.docs[0].data();
-//           setUserData(userDoc);
-
-//           // Fetch addresses subcollection
-//           const addressesSnapshot = await getDocs(collection(db, 'users', userId, 'addresses'));
-//           const addressesList = addressesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-//           setAddresses(addressesList);
-//         } else {
-//           console.log('No matching documents.');
+//           if (docSnap.exists()) {
+//             setUserData(docSnap.data());
+//           } else {
+//             console.log('No user document found.');
+//           }
 //         }
 //       } catch (error) {
 //         console.error('Error fetching user data:', error);
 //       }
 //     };
 
-//     if (currentUser && userId) {
+//     if (currentUser) {
 //       fetchUserData();
 //     }
-//   }, [currentUser, userId]);
+//   }, [currentUser, userEmail]);
+
+//   const handleUserUpdate = async (updatedData) => {
+//     try {
+//       const userDocRef = doc(db, 'user', userEmail);
+//       await updateDoc(userDocRef, updatedData);
+//       setUserData(prevData => ({ ...prevData, ...updatedData }));
+//     } catch (error) {
+//       console.error('Error updating user data:', error);
+//     }
+//   };
+
+//   const handleEditToggle = () => {
+//     setIsEditing(prev => !prev);
+//     if (isChangingPassword) {
+//       setIsChangingPassword(false);
+//     }
+//   };
+
+//   const handlePasswordToggle = () => {
+//     setIsChangingPassword(prev => !prev);
+//     if (isEditing) {
+//       setIsEditing(false);
+//     }
+//   };
 
 //   if (!userData) {
 //     return <p>Loading...</p>;
@@ -118,12 +169,24 @@ export default MyAccount;
 //     <div className="my-account-container">
 //       <h2>My Account</h2>
 //       <p><span>Email:</span> {userData.email}</p>
-//       <p><span>Name:</span> {userData.firstName} {userData.lastName}</p>
+//       <p><span>Name:</span> {userData.customername}</p>
 //       <p><span>Phone:</span> {userData.phone}</p>
 //       {/* Add more fields as needed */}
 
-//       {/* Add New Address Component */}
-//       <AddNewAddress userId={currentUser.uid} />
+//       <button onClick={handleEditToggle}>
+//         {isEditing ? 'Cancel Editing' : 'Edit Details'}
+//       </button>
+//       <button onClick={handlePasswordToggle}>
+//         {isChangingPassword ? 'Cancel Change Password' : 'Change Password'}
+//       </button>
+
+//       {isEditing && (
+//         <EditUserDetails userData={userData} onUpdate={handleUserUpdate} />
+//       )}
+
+//       {isChangingPassword && (
+//         <ChangePassword />
+//       )}
 //     </div>
 //   );
 // };

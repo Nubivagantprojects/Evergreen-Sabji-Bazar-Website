@@ -75,8 +75,8 @@
 
 .card-title {
   font-size: 1rem; /* Ensure a fixed font size */
-  line-height: 1.2; /* Adjust line height for title */
-  height: 2.4rem; /* Fixed height for title */
+  /* line-height: 1.2; Adjust line height for title */
+  /* height: 2.4rem; Fixed height for title */
   overflow: hidden; /* Hide overflow text */
   white-space: nowrap; /* Prevent text from wrapping */
   text-overflow: ellipsis; /* Add ellipsis for overflow text */

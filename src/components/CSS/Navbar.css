@@ -1,48 +1,55 @@
-/* src/components/Navbar.css */
+/* Custom CSS for the navbar */
 .custom-navbar {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navbar-brand-custom {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff !important;
-  }
-  
-  .nav-link-custom {
-    color: #fff !important;
-    margin-right: 15px;
-    transition: color 0.3s ease-in-out;
-  }
-  
-  .nav-link-custom:hover {
-    color: #ddd !important;
-  }
-  
-  .search-form-custom {
-    display: flex;
-    align-items: center;
-    margin-right: 15px;
-  }
-  
-  .search-bar-custom {
-    border-radius: 20px;
-    padding: 5px 10px;
-    border: 2px solid #28a745;
-  }
-  
-  .search-button-custom {
-    border-radius: 20px;
-    padding: 5px 20px;
-    background-color: #28a745;
-    border: none;
-    color: #fff;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .search-button-custom:hover {
-    background-color: #218838;
-  }
-  
+  background: linear-gradient(90deg, rgba(0,128,128,1) 0%, rgba(0,255,0,1) 100%);
+
+  padding: 10px 20px;
+}
+
+.navbar-brand-custom {
+  font-size: 1.5rem;
+  color: #ffffff !important; /* Ensure text color is white */
+}
+
+.nav-link-custom {
+  color: #ffffff !important; /* Ensure text color is white */
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 1.1rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link-custom:hover {
+  color: #fd950d !important; /* Hover color */
+}
+
+.search-form-custom {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar-custom {
+  border-radius: 30px;
+  padding: 5px 15px;
+  width: 200px;
+}
+
+.search-button-custom {
+  border-radius: 30px;
+  margin-left: 10px;
+}
+
+.navbar-collapse {
+  justify-content: space-between;
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}

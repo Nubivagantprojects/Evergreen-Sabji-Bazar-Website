@@ -76,12 +76,12 @@ const Checkout = () => {
     <div className="checkout-container">
       <Card className="product-card-checkout">
         <Card.Img id='product-card-img' variant="top" src={product.item_img} />
-        <Card.Body>
-          <Card.Title>{product.item_name}</Card.Title>
+        <div>
+          <p>{product.item_name}</p>
           <p>
             Price: ₹{product.item_price} {product.item_price_unit}
           </p>
-        </Card.Body>
+        </div>
       </Card>
       <div className="checkout-details">
         <h2>Confirm Your Purchase</h2>

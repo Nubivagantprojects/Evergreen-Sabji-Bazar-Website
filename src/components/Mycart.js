@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Table, Button, Image } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { collection, getDocs, query, where, doc, updateDoc, deleteDoc} from 'firebase/firestore';
 import { db } from '../firebase';
 
@@ -20,6 +21,7 @@ const fetchCart = async (user) => {
 const MyCart = () => {
     const [cart, setCart] = useState([]);
     const user_obj = localStorage.getItem("k45#45sed");
+    const navigate = useNavigate();
     const user = JSON.parse(user_obj);
     useEffect(() => {
         const getCart = async () => {
@@ -59,6 +61,9 @@ const MyCart = () => {
     const getTotal = () => {
         return cart.reduce((acc, item) => acc + (Number(item.amount) * Number(item.quantity)), 0);
     };
+    const handleCheckout = () => {
+        navigate('/checkout', { state: { cart, totalAmount: getTotal() } });
+    };
 
     return (
         <Container>
@@ -97,7 +102,7 @@ const MyCart = () => {
                     </tr>
                 </tfoot>
             </Table>
-            <Button variant="warning" size="lg" className="mt-3">PROCEED TO CHECKOUT RS {getTotal()}</Button>
+            <Button variant="warning" size="lg" className="mt-3" onClick={handleCheckout}>PROCEED TO CHECKOUT RS {getTotal()}</Button>
         </Container>
     );
 };

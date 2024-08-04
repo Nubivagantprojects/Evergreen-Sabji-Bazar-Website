@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Form, FormControl, Button, Modal, Alert } from 'react-bootstrap';
 import { auth } from '../firebase'; // Assuming you have auth imported correctly from your firebase configuration
 import { db } from '../firebase'; // Import Firestore from Firebase
-import { collection, addDoc, query, where, getCountFromServer } from 'firebase/firestore';
+import { collection, doc, setDoc, query, where, getCountFromServer } from 'firebase/firestore';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'; // Import Firebase auth functions
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 
 import './CSS/Navbar.css';
@@ -23,6 +23,16 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
     const [user, setUser] = useState(null);
     const [alert, setAlert] = useState({ type: '', message: '' });
     const [count, setCount] = useState(0);
+    const [expanded, setExpanded] = useState(false);
+    const navigate = useNavigate();
+
+    const handleToggle = () => {
+        setExpanded(!expanded);
+    };
+
+    const handleLinkClick = () => {
+        setExpanded(false);
+    };
 
 
     const countcart = async () => {
@@ -46,7 +56,7 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                 console.error("Error getting document count: ", error);
             }
         }
-        else{
+        else {
             setCount(0)
         }
 
@@ -56,10 +66,10 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
             setUser(user);
             localStorage.setItem("k45#45sed", JSON.stringify(user));
         });
-        
+
         return () => unsubscribe();
     }, []);
-    useEffect(()=>{
+    useEffect(() => {
         countcart();
     })
 
@@ -96,13 +106,27 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
         }
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
-            // Store additional details in Firestore
-            await addDoc(collection(db, 'users'), {
+            // Create a document reference with email as the document ID
+            const userDocRef = doc(db, 'user', signupEmail);
+
+            await setDoc(userDocRef, {
                 uid: userCredential.user.uid,
-                firstName: signupFirstName,
-                lastName: signupLastName,
+                customername: `${signupFirstName} ${signupLastName}`,
                 email: signupEmail,
                 phone: signupPhone,
+                password: signupPassword,
+                dp_url:"",
+                reg_on: new Date(), // Set the current date and time
+                isD: "0", // Default value
+                isE: "1", // Default value
+                pin:"",
+                country:"",
+                state:"",
+                dist:"",
+                locality:"",
+                add1:"",
+                add2:"",
+                gender:""
             });
             setShowSignup(false);
             setSignupFirstName('');
@@ -125,10 +149,9 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
         try {
             await auth.signOut();
             localStorage.removeItem("k45#45sed");
-            // setAlert({ type: 'success', message: 'Successfully logged out!' });
             showAlertWithAutoDismiss('success', 'Successfully Logged out!');
+            navigate('/');
         } catch (error) {
-            // setAlert({ type: 'danger', message: error.message });
             showAlertWithAutoDismiss('danger', error.message);
         }
     };
@@ -150,31 +173,32 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                     {alert.message}
                 </Alert>
             )}
-            <Navbar bg="dark" variant="dark" expand="lg" className="custom-navbar">
-                <Navbar.Brand style={{marginLeft:"35px"}}  href="#home" className="navbar-brand-custom">Evergreen Sabji Bazar</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+            <Navbar expand="lg" className="custom-navbar" expanded={expanded}>
+                <Navbar.Brand style={{ marginLeft: "35px" }} href="#home" className="navbar-brand-custom">Evergreen Sabji Bazar</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle} />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto" style={{marginLeft:"35px"}} >
-                        <Nav.Link as={Link} to="/" className="nav-link-custom">Home</Nav.Link>
-                        <Nav.Link onClick={() => scrollToSection(categoriesRef)} className="nav-link-custom">Categories</Nav.Link>
-                        <Nav.Link onClick={() => scrollToSection(productsRef)} className="nav-link-custom">All Products</Nav.Link>
-                        <Nav.Link as={Link} to="/about" className="nav-link-custom">About Us</Nav.Link>
-                        {user && <Nav.Link as={Link} to="/account" className="nav-link-custom">My Account</Nav.Link>}
-                        <Nav.Link as={Link} to="/contact" className="nav-link-custom">Contact</Nav.Link>
+                    <Nav className="mr-auto" style={{ marginLeft: "35px" }}>
+                        <Nav.Link as={Link} to="/" className="nav-link-custom" onClick={handleLinkClick}>Home</Nav.Link>
+                        {/* <Nav.Link onClick={() => { scrollToSection(categoriesRef); handleLinkClick(); }} className="nav-link-custom">Categories</Nav.Link>
+          <Nav.Link onClick={() => { scrollToSection(productsRef); handleLinkClick(); }} className="nav-link-custom">All Products</Nav.Link> */}
+                        <Nav.Link as={Link} to="/about" className="nav-link-custom" onClick={handleLinkClick}>About Us</Nav.Link>
+                        {user && <Nav.Link as={Link} to="/account" className="nav-link-custom" onClick={handleLinkClick}>My Account</Nav.Link>}
+                        <Nav.Link as={Link} to="/contact" className="nav-link-custom" onClick={handleLinkClick}>Contact</Nav.Link>
                     </Nav>
-                    <Form style={{marginLeft:"35px"}}  inline className="search-form-custom">
+                    <Form style={{ marginLeft: "35px" }} inline className="search-form-custom">
                         <FormControl type="text" placeholder="Search" className="mr-sm-2 search-bar-custom" />
-                        <Button variant="outline-success" className="search-button-custom m-2">Search</Button>
+                        <Button variant="outline-primary" className="search-button-custom m-2">Search</Button>
                     </Form>
-                    <Nav style={{marginLeft:"35px"}} >
+                    <Nav style={{ marginLeft: "35px" }}>
                         {user ? (
                             <>
-                                <Nav.Link onClick={handleLogout} className="nav-link-custom">Logout</Nav.Link>
-                                <Nav.Link href="./cart" className="nav-link-custom text-danger"><FaShoppingCart /> My Cart <sup>{count}</sup> </Nav.Link>
+                                <Nav.Link onClick={() => { handleLogout(); handleLinkClick(); }} className="nav-link-custom">Logout</Nav.Link>
+                                <Nav.Link as={Link} to="/cart" className="nav-link-custom text-primary" onClick={handleLinkClick}><FaShoppingCart /> My Cart <sup>{count}</sup></Nav.Link>
                             </>
                         ) : (
                             <>
-                                <Nav.Link onClick={() => setShowLogin(true)} className="nav-link-custom">Login/Signup</Nav.Link>
+                                <Nav.Link onClick={() => { setShowLogin(true); handleLinkClick(); }} className="nav-link-custom">Login/Signup</Nav.Link>
                             </>
                         )}
                     </Nav>
@@ -208,13 +232,13 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" className='mt-2 custom-navbar'>
                             Login
                         </Button>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={openSignup}>Signup</Button>
+                    <Button variant="primary" onClick={openSignup}>Signup</Button>
                     <Button variant="secondary" onClick={() => setShowLogin(false)}>Close</Button>
                 </Modal.Footer>
             </Modal>
@@ -246,16 +270,6 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="formPhone">
-                            <Form.Label>Phone</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Phone"
-                                value={signupPhone}
-                                onChange={(e) => setSignupPhone(e.target.value)}
-                            />
-                        </Form.Group>
-
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control
@@ -263,6 +277,16 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                                 placeholder="Enter email"
                                 value={signupEmail}
                                 onChange={(e) => setSignupEmail(e.target.value)}
+                            />
+                        </Form.Group>
+
+                        <Form.Group controlId="formPhone">
+                            <Form.Label>Phone</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Phone"
+                                value={signupPhone}
+                                onChange={(e) => setSignupPhone(e.target.value)}
                             />
                         </Form.Group>
 
@@ -286,13 +310,13 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" className='mt-2 custom-navbar'>
                             Signup
                         </Button>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={openLogin}>Login</Button>
+                    <Button variant="primary" onClick={openLogin}>Login</Button>
                     <Button variant="secondary" onClick={() => setShowSignup(false)}>Close</Button>
                 </Modal.Footer>
             </Modal>

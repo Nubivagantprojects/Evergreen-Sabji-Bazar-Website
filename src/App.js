@@ -17,6 +17,7 @@ import CancellationRefundPolicy from './components/CancellationRefundPolicy';
 import TermsAndConditions from './components/TermsAndConditions';
 import ScrollToTop from './components/ScrollToTop';
 import ContactUs from './components/ContactUs';
+import CheckoutCart from './components/CheckoutCart';
 
 const App = () => {
   const categoriesRef = useRef(null);
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/product/:productId" element={<ProductDetails />} />
           {/* <Route path="/checkout" element={<Checkout />} /> */}
           <Route path="/checkout/:productId" element={<Checkout />} />
+          <Route path="/checkout" element={<CheckoutCart />} />
           <Route path="/order-success" element={<OrderSuccess />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/cancellation-refund-policy" element={<CancellationRefundPolicy />} />
