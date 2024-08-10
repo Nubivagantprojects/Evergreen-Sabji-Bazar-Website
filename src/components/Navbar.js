@@ -114,6 +114,7 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                 customername: `${signupFirstName} ${signupLastName}`,
                 email: signupEmail,
                 phone: signupPhone,
+                phone2:"",
                 password: signupPassword,
                 dp_url:"",
                 reg_on: new Date(), // Set the current date and time
