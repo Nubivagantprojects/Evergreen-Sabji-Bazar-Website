@@ -68,7 +68,7 @@ const Checkout = () => {
   };
 
   const handlePayment = () => {
-    
+
     const options = {
       key: 'rzp_test_31wiWLVJekIJyP',
       amount: product.item_price * 100,
@@ -79,14 +79,16 @@ const Checkout = () => {
       handler: async function (response) {
         const fullAddress = `${userData.add1}, ${userData.locality}, ${userData.dist}, ${userData.state}, ${userData.pin}`;
         const tok = "OR" + Date.now();
+        const now = new Date();
+        const currentDateTime = now.toLocaleString();
         try {
           console.log('Razorpay Response:', response);
-          if ( !response.razorpay_payment_id) {
+          if (!response.razorpay_payment_id) {
             console.error('Razorpay response is missing order ID or payment ID');
             alert('Payment failed: Order ID or Payment ID is missing.');
             return;
           }
-  
+
           const orderData = {
             address: fullAddress,
             comnt: '',
@@ -106,8 +108,8 @@ const Checkout = () => {
             transit_status: '0',
             user: `${userData.email}`,
             verification: '1',
-            ordered_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
+            ordered_at:currentDateTime,
+            updated_at:currentDateTime,
             z1: '1',
             pname: `${product.item_name}`,
             pid: `${productId}`,
@@ -118,11 +120,11 @@ const Checkout = () => {
             z3: '',
             z4: ''
           };
-  
+
           // Store order data in Firestore
           const orderDocRef = doc(db, 'order', tok);
           await setDoc(orderDocRef, orderData);
-  
+
           alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
           navigate('/order-success', { state: { product } });
         } catch (error) {
@@ -139,11 +141,11 @@ const Checkout = () => {
         color: '#3399cc'
       }
     };
-  
+
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   };
-  
+
 
   if (!product || !userData) return <p>Loading...</p>;
 

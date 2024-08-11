@@ -1,44 +1,96 @@
-/* OrderSuccess.css */
-.order-success-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f8f9fa;
-    padding: 20px;
-  }
-  
-  .success-message {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .success-message h1 {
-    color: #28a745;
-    font-size: 2.5rem;
-  }
-  
-  .success-message p {
-    font-size: 1.25rem;
-    color: #6c757d;
-  }
-  
-  .product-card-success {
-    max-width: 400px;
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  .product-card-success img {
-    border-radius: 8px;
-  }
-  
-  .product-card-success .card-body {
-    text-align: center;
-  }
-  
-  .product-card-success .btn {
-    margin-top: 10px;
-  }
-  
+/* src/components/CSS/OrderSuccess.css */
+
+/* Container for the entire order success page */
+#order-success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+/* Success message styling */
+#success-message {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#success-message h1 {
+  font-size: 2.5rem;
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+#success-message p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Container for product cards */
+#product-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Card styling for product */
+.product-card-success {
+  width: 250px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+
+.product-card-success:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Consistent image sizing */
+.product-card-success .card-img {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Card title and text styling */
+.product-card-success .card-title {
+  font-size: 1.2rem;
+  color: #333;
+  margin-top: 10px;
+}
+
+.product-card-success .card-text {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+/* No items text styling */
+#no-items {
+  font-size: 1.2rem;
+  color: #888;
+  text-align: center;
+}
+
+/* Button styling */
+#shop-more-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+#shop-more-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}

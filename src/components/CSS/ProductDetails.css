@@ -72,6 +72,29 @@
     border-color: var(--primary-color);
     color: var(--primary-color);
   }
+  .carousel-control-prev,
+.carousel-control-next {
+  width: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel-control-prev {
+  left: 10px;
+  color: #fff;
+  background-color: #007bff; /* Color for the previous button */
+}
+
+.carousel-control-next {
+  right: 10px;
+  color: #fff;
+  background-color: #28a745; /* Color for the next button */
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: transparent; /* Remove default background color */
+  font-size: 2rem; /* Adjust icon size */
+}
   
   @media (max-width: 768px) {
     .product-details-container {
