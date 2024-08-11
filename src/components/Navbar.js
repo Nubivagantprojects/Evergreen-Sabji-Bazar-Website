@@ -185,6 +185,7 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
           <Nav.Link onClick={() => { scrollToSection(productsRef); handleLinkClick(); }} className="nav-link-custom">All Products</Nav.Link> */}
                         <Nav.Link as={Link} to="/about" className="nav-link-custom" onClick={handleLinkClick}>About Us</Nav.Link>
                         {user && <Nav.Link as={Link} to="/account" className="nav-link-custom" onClick={handleLinkClick}>My Account</Nav.Link>}
+                        {user && <Nav.Link as={Link} to="/my-order" className="nav-link-custom" onClick={handleLinkClick}>My Orders</Nav.Link>}
                         <Nav.Link as={Link} to="/contact" className="nav-link-custom" onClick={handleLinkClick}>Contact</Nav.Link>
                     </Nav>
                     <Form style={{ marginLeft: "35px" }} inline className="search-form-custom">

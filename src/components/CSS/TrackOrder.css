@@ -1,0 +1,100 @@
+/* src/components/CSS/TrackOrder.css */
+
+.track-order-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .track-order-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .track-order-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .timeline {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  .timeline-step {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .timeline-step-content {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 40px;
+  }
+  
+  .timeline-step .step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ccc;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+  }
+  
+  .timeline-step .step-label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .timeline-step.active .step-number {
+    background-color: #5bc0de;
+  }
+  
+  .timeline-step.completed .step-number {
+    background-color: #5cb85c;
+  }
+  
+  .timeline-step.completed .step-label {
+    color: #5cb85c;
+  }
+  
+  .timeline-step.active .step-label {
+    color: #5bc0de;
+  }
+  
+  /* .button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .button-container .mr-2 {
+    margin-right: 10px;
+  } */
+  
+  .modal-header {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .modal-footer .btn-danger {
+    background-color: #d9534f;
+    border-color: #d9534f;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+  

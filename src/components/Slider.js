@@ -7,16 +7,16 @@ import { db } from '../firebase';
 
 const fetchCategories = async () => {
   const categoriesCollection = collection(db, 'Banners');
-  console.log(categoriesCollection)
+  // console.log(categoriesCollection)
   const categorySnapshot = await getDocs(categoriesCollection);
-  console.log(categorySnapshot)
+  // console.log(categorySnapshot)
   const categoryList = categorySnapshot.docs.map(doc => ({
     ...doc.data(),
   }));
   return categoryList;
 };
 const categories = await fetchCategories();
-console.log(categories)
+// console.log(categories)
 
 const Slider = () => {
   return (

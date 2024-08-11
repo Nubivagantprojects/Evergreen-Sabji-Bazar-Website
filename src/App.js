@@ -18,6 +18,8 @@ import TermsAndConditions from './components/TermsAndConditions';
 import ScrollToTop from './components/ScrollToTop';
 import ContactUs from './components/ContactUs';
 import CheckoutCart from './components/CheckoutCart';
+import MyOrders from './components/MyOrders';
+import TrackOrder from './components/TrackOrder';
 
 const App = () => {
   const categoriesRef = useRef(null);
@@ -43,6 +45,8 @@ const App = () => {
           <Route path="/" element={<Home categoriesRef={categoriesRef} productsRef={productsRef} scrollToSection={scrollToSection} />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/account" element={<MyAccount />} />
+          <Route path="/my-order" element={<MyOrders />} />
+          <Route path="/track-order/:orderId" element={<TrackOrder />} />
           <Route path="/cart" element={<MyCart/>} />
           <Route path="/product/:productId" element={<ProductDetails />} />
           {/* <Route path="/checkout" element={<Checkout />} /> */}
