@@ -136,7 +136,7 @@ const MyOrders = () => {
                                     <strong>Address:</strong> {order.address || 'N/A'}
                                     <br />
                                     <strong>Status:</strong>
-                                    <span className={`status-label status-${getStatusLabel(order)}`}>
+                                    <span className={`status-label status-${getStatusLabel(order)}`} style={{color:"white"}}>
                                         {getStatusLabel(order)}
                                     </span>
                                 </Card.Text>

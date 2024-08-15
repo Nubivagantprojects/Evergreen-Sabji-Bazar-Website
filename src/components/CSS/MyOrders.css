@@ -1,72 +1,106 @@
-/* src/components/CSS/MyOrders.css */
-
+/* Base styling */
 .my-orders-container {
   padding: 20px;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Filter Buttons */
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.filter-buttons .btn {
+  flex: 1;
+  max-width: 120px;
+}
+
+/* Orders List */
 .orders-list {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
 
 .order-card {
-  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
   border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  width: 300px; /* Fixed width for uniform card size */
+  height: 350px; /* Fixed height for uniform card size */
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .order-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .order-card .card-body {
-  position: relative;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.order-card .card-body .status-label {
+.order-card .status-label {
   display: inline-block;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border-radius: 4px;
   font-weight: bold;
-  color: #fff;
-  text-transform: capitalize;
-  margin-left: 10px;
+  margin-top: auto; /* Pushes the status label to the bottom */
 }
 
-/* Status-specific styles */
+/* Status Labels */
 .status-Ordered {
-  background-color: #f0ad4e; /* Orange */
+  background-color: #6c757d; /* Gray for ordered */
+  color: #ffffff;
 }
-.status-Intransit{
-  background-color:green;/*green*/
+
+.status-Intransit {
+  background-color: #ffc107; /* Yellow for in transit */
+  color: #000000;
 }
+
 .status-Delivered {
-  background-color: #5bc0de; /* Blue */
+  background-color: #28a745; /* Green for delivered */
+  color: #ffffff;
 }
 
 .status-Cancelled {
-  background-color: #d9534f; /* Red */
+  background-color: #dc3545; /* Red for cancelled */
+  color: #ffffff;
 }
 
-.status-Unknown {
-  background-color: #6c757d; /* Gray */
+/* Responsive design */
+@media (max-width: 768px) {
+  .filter-buttons {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .filter-buttons .btn {
+      max-width: 100%;
+  }
+
+  .orders-list {
+      justify-content: center;
+  }
 }
 
-/* .button-container {
-  margin-top: 20px;
-} */
-.filter-buttons {
-  margin-bottom: 20px;
-  display: flex;
-  gap: 10px;
-}
-
-.orders-list {
-  margin-top: 20px;
+@media (max-width: 576px) {
+  .order-card {
+      width: 100%; /* Full width on very small screens */
+  }
 }
