@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './CSS/AllProducts.css'; // Import CSS file for styling
 import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
+import { auth } from '../firebase'; // Ensure your Firebase configuration is properly imported
 
 const fetchProducts = async () => {
   const productsCollection = collection(db, 'item');
@@ -33,7 +34,13 @@ const AllProducts = ({ selectedCategory }) => {
     : products;
 
   const handleBuyNow = (product) => {
-    navigate(`/checkout/${product.id}`, { state: { product } });
+    const user = auth.currentUser;
+    if (user) {
+      navigate(`/checkout/${product.id}`, { state: { product } });
+    }else{
+      window.alert("Please Login first");
+    }
+    
   };
 
   const showAlertWithAutoDismiss = (type, message) => {
@@ -44,9 +51,9 @@ const AllProducts = ({ selectedCategory }) => {
   };
 
   const handleCart = async (item) => {
-    const user_obj = localStorage.getItem("k45#45sed");
-    if (user_obj != null) {
-      const user = JSON.parse(user_obj);
+    const user = auth.currentUser;
+    if (user) {
+      // const user = JSON.parse(user_obj);
       try {
         // Generate a unique ID for the new document
         const docId = "C" + Date.now();
@@ -71,11 +78,15 @@ const AllProducts = ({ selectedCategory }) => {
 
         showAlertWithAutoDismiss('success', 'Item added to cart');
         console.log("Item added to cart with ID: ", docId);
+        window.location.href="/cart"
       } catch (error) {
-        showAlertWithAutoDismiss('danger', 'Error adding to cart');
+        // showAlertWithAutoDismiss('danger', 'Error adding to cart');
+        window.alert("Please Login first");
         console.error("Error adding item to cart: ", error);
       }
-      window.location.href="/cart"
+      
+    }else{
+      window.alert("Please Login first");
     }
   };
 

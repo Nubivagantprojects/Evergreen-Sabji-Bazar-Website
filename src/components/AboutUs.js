@@ -60,7 +60,7 @@ const AboutUs = () => {
         <Col md={4}>
           <div className="team-member-card">
             <img
-              src="https://firebasestorage.googleapis.com/v0/b/evergreen-sabji-bazar.appspot.com/o/dinesh%20ji.png?alt=media&token=432e39db-5627-4b2c-9ff5-2c56a57f2c25"
+              src="https://firebasestorage.googleapis.com/v0/b/evergreen-sabji-bazar.appspot.com/o/dinesh%20ji%20final.png?alt=media&token=e1d046ba-95c7-4a1a-b5f3-a2a3d41a547b"
               className="img-fluid"
               alt="Team Member 1"
             />

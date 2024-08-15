@@ -1,9 +1,9 @@
 // src/components/ProductDetails.js
 import React, { useEffect, useState } from 'react';
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from '../firebase';
-import { Card, Button, Carousel,Alert } from 'react-bootstrap';
+import { db, auth } from '../firebase';
+import { Card, Button, Carousel, Alert } from 'react-bootstrap';
 import './CSS/ProductDetails.css'; // Import CSS file for styling
 
 const ProductDetails = () => {
@@ -38,13 +38,17 @@ const ProductDetails = () => {
   };
 
   const handleBuyNow = (product) => {
-    navigate(`/checkout/${product.id}`, { state: { product } });
+    const user = auth.currentUser;
+    if (user)
+      navigate(`/checkout/${product.id}`, { state: { product } });
+    else
+      window.alert("Please Login first");
   };
 
   const handleCart = async (item) => {
-    const user_obj = localStorage.getItem("k45#45sed");
-    if (user_obj != null) {
-      const user = JSON.parse(user_obj);
+    const user = auth.currentUser;
+    if (user) {
+      // const user = JSON.parse(user_obj);
       try {
         // Generate a unique ID for the new document
         const docId = "C" + Date.now();
@@ -69,11 +73,15 @@ const ProductDetails = () => {
 
         showAlertWithAutoDismiss('success', 'Item added to cart');
         console.log("Item added to cart with ID: ", docId);
+        window.location.href = "/cart"
       } catch (error) {
         showAlertWithAutoDismiss('danger', 'Error adding to cart');
         console.error("Error adding item to cart: ", error);
       }
-      window.location.href="/cart"
+      
+    }
+    else{
+      window.alert("Please Login first");
     }
   };
 
@@ -88,8 +96,8 @@ const ProductDetails = () => {
         </Alert>
       )}
       <div className="product-details-container">
-        <div className="image-section" style={{border:"2px solid green", borderRadius:"5PX"}}>
-        <Carousel prevIcon={<span className="carousel-control-prev-icon" />} nextIcon={<span className="carousel-control-next-icon" />}>
+        <div className="image-section" style={{ border: "2px solid green", borderRadius: "5PX" }}>
+          <Carousel prevIcon={<span className="carousel-control-prev-icon" />} nextIcon={<span className="carousel-control-next-icon" />}>
             {productImages.map((img, index) => (
               <Carousel.Item key={index}>
                 <img className="d-block w-100" src={img} alt={`Slide ${index}`} />
