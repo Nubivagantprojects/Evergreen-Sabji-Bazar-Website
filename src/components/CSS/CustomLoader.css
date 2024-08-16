@@ -1,0 +1,38 @@
+.custom-loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Adjust as needed */
+  }
+  
+  .custom-loader {
+    display: flex;
+    justify-content: space-between;
+    width: 80px; /* Adjust as needed */
+  }
+  
+  .loader-circle {
+    width: 15px;
+    height: 15px;
+    background-color: #007bff; /* Primary color or your choice */
+    border-radius: 50%;
+    animation: bounce 0.6s infinite alternate;
+  }
+  
+  .loader-circle:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .loader-circle:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes bounce {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-20px);
+    }
+  }
+  

@@ -25,6 +25,7 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
     const [count, setCount] = useState(0);
     const [expanded, setExpanded] = useState(false);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const handleToggle = () => {
         setExpanded(!expanded);
@@ -83,6 +84,7 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
             setShowLogin(false);
@@ -94,6 +96,8 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
             // setAlert({ type: 'danger', message: error.message });
             showAlertWithAutoDismiss('danger', error.message);
             setShowLogin(false);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -104,6 +108,7 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
             showAlertWithAutoDismiss('danger', 'Passwords do not match');
             return;
         }
+        setLoading(true);
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
             // Create a document reference with email as the document ID
@@ -114,20 +119,20 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                 customername: `${signupFirstName} ${signupLastName}`,
                 email: signupEmail,
                 phone: signupPhone,
-                phone2:"",
+                phone2: "",
                 password: signupPassword,
-                dp_url:"",
+                dp_url: "",
                 reg_on: new Date(), // Set the current date and time
                 isD: "0", // Default value
                 isE: "1", // Default value
-                pin:"",
-                country:"",
-                state:"",
-                dist:"",
-                locality:"",
-                add1:"",
-                add2:"",
-                gender:""
+                pin: "",
+                country: "",
+                state: "",
+                dist: "",
+                locality: "",
+                add1: "",
+                add2: "",
+                gender: ""
             });
             setShowSignup(false);
             setSignupFirstName('');
@@ -143,6 +148,8 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
             // setAlert({ type: 'danger', message: error.message });
             showAlertWithAutoDismiss('danger', error.message);
             setShowSignup(false);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -169,11 +176,6 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
 
     return (
         <>
-            {alert.message && (
-                <Alert variant={alert.type} onClose={() => setAlert({ type: '', message: '' })} dismissible>
-                    {alert.message}
-                </Alert>
-            )}
 
             <Navbar expand="lg" className="custom-navbar" expanded={expanded}>
                 <Navbar.Brand style={{ marginLeft: "35px" }} href="#home" className="navbar-brand-custom">Evergreen Sabji Bazar</Navbar.Brand>
@@ -209,6 +211,11 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
 
             {/* Login Modal */}
             <Modal show={showLogin} onHide={() => setShowLogin(false)}>
+                {alert.message && (
+                    <Alert variant={alert.type} onClose={() => setAlert({ type: '', message: '' })} dismissible>
+                        {alert.message}
+                    </Alert>
+                )}
                 <Modal.Header closeButton>
                     <Modal.Title>Login</Modal.Title>
                 </Modal.Header>
@@ -234,6 +241,14 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                             />
                         </Form.Group>
 
+                        {loading && (
+                            <div className="text-center my-3">
+                                <div className="spinner-border" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        )}
+
                         <Button variant="primary" type="submit" className='mt-2 custom-navbar'>
                             Login
                         </Button>
@@ -247,6 +262,11 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
 
             {/* Signup Modal */}
             <Modal show={showSignup} onHide={() => setShowSignup(false)}>
+                {alert.message && (
+                    <Alert variant={alert.type} onClose={() => setAlert({ type: '', message: '' })} dismissible>
+                        {alert.message}
+                    </Alert>
+                )}
                 <Modal.Header closeButton>
                     <Modal.Title>Signup</Modal.Title>
                 </Modal.Header>
@@ -312,6 +332,14 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                             />
                         </Form.Group>
 
+                        {loading && (
+                            <div className="text-center my-3">
+                                <div className="spinner-border" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        )}
+
                         <Button variant="primary" type="submit" className='mt-2 custom-navbar'>
                             Signup
                         </Button>
@@ -322,6 +350,8 @@ const CustomNavbar = ({ scrollToSection, categoriesRef, productsRef }) => {
                     <Button variant="secondary" onClick={() => setShowSignup(false)}>Close</Button>
                 </Modal.Footer>
             </Modal>
+
+
         </>
     );
 };

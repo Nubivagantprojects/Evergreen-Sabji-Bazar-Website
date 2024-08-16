@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Card, Button, Form } from 'react-bootstrap';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
+import CustomLoader from './CustomLoader';
 import './CSS/Checkout.css'; // Import CSS file for styling
 
 const fetchProduct = async (productId) => {
@@ -147,7 +148,7 @@ const Checkout = () => {
   };
 
 
-  if (!product || !userData) return <p>Loading...</p>;
+  if (!product || !userData) return <CustomLoader />;;
 
   return (
     <div className="checkout-container">
