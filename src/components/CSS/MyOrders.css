@@ -1,106 +1,135 @@
-/* Base styling */
+/* Container for the entire orders page */
 .my-orders-container {
   padding: 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
 }
 
-h1 {
+/* Heading styling */
+.my-orders-container h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  color: #333;
 }
 
-/* Filter Buttons */
+/* Filter buttons section */
 .filter-buttons {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.filter-buttons .btn {
-  flex: 1;
-  max-width: 120px;
-}
-
-/* Orders List */
-.orders-list {
-  display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
 }
 
+/* Individual filter button styling */
+.filter-buttons .btn {
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filter-buttons .btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.filter-buttons .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.filter-buttons .btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.filter-buttons .btn-success:hover {
+  background-color: #1e7e34;
+}
+
+.filter-buttons .btn-warning {
+  background-color: #ffc107;
+  border: none;
+}
+
+.filter-buttons .btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.filter-buttons .btn-info {
+  background-color: #17a2b8;
+  border: none;
+}
+
+.filter-buttons .btn-info:hover {
+  background-color: #117a8b;
+}
+
+.filter-buttons .btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.filter-buttons .btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Orders list styling */
+.orders-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Individual order card styling */
 .order-card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  width: 300px; /* Fixed width for uniform card size */
-  height: 350px; /* Fixed height for uniform card size */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
+  overflow: hidden;
 }
 
 .order-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Card body styling */
 .order-card .card-body {
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  padding: 20px;
 }
 
-.order-card .status-label {
+/* Order status label styling */
+.status-label {
   display: inline-block;
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;
   font-weight: bold;
-  margin-top: auto; /* Pushes the status label to the bottom */
+  color: #fff;
 }
 
-/* Status Labels */
+/* Specific status colors */
 .status-Ordered {
-  background-color: #6c757d; /* Gray for ordered */
-  color: #ffffff;
+  background-color: #f0ad4e; /* Amber */
 }
 
 .status-Intransit {
-  background-color: #ffc107; /* Yellow for in transit */
-  color: #000000;
+  background-color: #5bc0de; /* Sky Blue */
 }
 
 .status-Delivered {
-  background-color: #28a745; /* Green for delivered */
-  color: #ffffff;
+  background-color: #5cb85c; /* Success Green */
 }
 
 .status-Cancelled {
-  background-color: #dc3545; /* Red for cancelled */
-  color: #ffffff;
+  background-color: #d9534f; /* Danger Red */
 }
 
-/* Responsive design */
+/* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .filter-buttons {
       flex-direction: column;
-      gap: 10px;
-  }
-
-  .filter-buttons .btn {
-      max-width: 100%;
-  }
-
-  .orders-list {
-      justify-content: center;
-  }
-}
-
-@media (max-width: 576px) {
-  .order-card {
-      width: 100%; /* Full width on very small screens */
+      align-items: center;
   }
 }

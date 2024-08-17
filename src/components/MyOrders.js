@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { Card, Button, Alert } from 'react-bootstrap';
+import { Card, Button, Alert, Placeholder } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './CSS/MyOrders.css'; // Import CSS file for styling
 
 const MyOrders = () => {
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [filterType, setFilterType] = useState('all');
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ const MyOrders = () => {
             const user = JSON.parse(localStorage.getItem("k45#45sed"));
             if (!user) {
                 setError("User not logged in");
+                setLoading(false);
                 return;
             }
 
@@ -64,14 +66,38 @@ const MyOrders = () => {
             } catch (err) {
                 setError('Failed to fetch orders');
                 console.error('Error fetching orders: ', err);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchOrders();
-    }, [filterType]); // Runs whenever filterType changes
+    }, [filterType]);
 
     if (error) {
         return <Alert variant="danger">{error}</Alert>;
+    }
+
+    if (loading) {
+        return (
+            <div className="orders-list m-5">
+                {Array.from({ length: 5 }).map((_, index) => (
+                    <Card key={index} className="order-card">
+                        <Card.Body>
+                            <Placeholder as={Card.Title} animation="glow">
+                                <Placeholder xs={6} />
+                            </Placeholder>
+                            <Placeholder as={Card.Text} animation="glow">
+                                <Placeholder xs={7} /> <Placeholder xs={4} />
+                                <br />
+                                <Placeholder xs={4} /> <Placeholder xs={6} />
+                            </Placeholder>
+                            <Placeholder.Button variant="primary" xs={6} />
+                        </Card.Body>
+                    </Card>
+                ))}
+            </div>
+        );
     }
 
     const getStatusLabel = (order) => {
@@ -91,7 +117,6 @@ const MyOrders = () => {
         <div className="my-orders-container">
             <h1>My Orders</h1>
 
-            {/* Filter Buttons */}
             <div className="filter-buttons">
                 <Button 
                     variant={filterType === 'all' ? 'primary' : 'secondary'} 
@@ -153,8 +178,6 @@ const MyOrders = () => {
 export default MyOrders;
 
 
-
-// // src/components/MyOrders.js
 // import React, { useEffect, useState } from 'react';
 // import { db } from '../firebase';
 // import { collection, query, where, getDocs } from 'firebase/firestore';
@@ -162,9 +185,10 @@ export default MyOrders;
 // import { useNavigate } from 'react-router-dom';
 // import './CSS/MyOrders.css'; // Import CSS file for styling
 
-// const MyOrders = ({ type }) => {
+// const MyOrders = () => {
 //     const [orders, setOrders] = useState([]);
 //     const [error, setError] = useState(null);
+//     const [filterType, setFilterType] = useState('all');
 //     const navigate = useNavigate();
 
 //     useEffect(() => {
@@ -178,7 +202,7 @@ export default MyOrders;
 //             const ref = collection(db, 'order');
 //             let q;
 
-//             switch (type) {
+//             switch (filterType) {
 //                 case 'intransit':
 //                     q = query(
 //                         ref,
@@ -224,7 +248,7 @@ export default MyOrders;
 //         };
 
 //         fetchOrders();
-//     }, [type]);
+//     }, [filterType]); // Runs whenever filterType changes
 
 //     if (error) {
 //         return <Alert variant="danger">{error}</Alert>;
@@ -242,11 +266,40 @@ export default MyOrders;
 //                 return 'Unknown';
 //         }
 //     };
-    
 
 //     return (
 //         <div className="my-orders-container">
 //             <h1>My Orders</h1>
+
+//             {/* Filter Buttons */}
+//             <div className="filter-buttons">
+//                 <Button 
+//                     variant={filterType === 'all' ? 'primary' : 'secondary'} 
+//                     onClick={() => setFilterType('all')}>
+//                     All
+//                 </Button>
+//                 <Button 
+//                     variant={filterType === 'ordered' ? 'success' : 'secondary'} 
+//                     onClick={() => setFilterType('ordered')}>
+//                     Ordered
+//                 </Button>
+//                 <Button 
+//                     variant={filterType === 'intransit' ? 'warning' : 'secondary'} 
+//                     onClick={() => setFilterType('intransit')}>
+//                     In Transit
+//                 </Button>
+//                 <Button 
+//                     variant={filterType === 'delivered' ? 'info' : 'secondary'} 
+//                     onClick={() => setFilterType('delivered')}>
+//                     Delivered
+//                 </Button>
+//                 <Button 
+//                     variant={filterType === 'cancel' ? 'danger' : 'secondary'} 
+//                     onClick={() => setFilterType('cancel')}>
+//                     Cancelled
+//                 </Button>
+//             </div>
+
 //             <div className="orders-list">
 //                 {orders.length === 0 ? (
 //                     <p>No orders found.</p>
@@ -263,7 +316,7 @@ export default MyOrders;
 //                                     <strong>Address:</strong> {order.address || 'N/A'}
 //                                     <br />
 //                                     <strong>Status:</strong>
-//                                     <span className={`status-label status-${getStatusLabel(order)}`}>
+//                                     <span className={`status-label status-${getStatusLabel(order)}`} style={{color:"white"}}>
 //                                         {getStatusLabel(order)}
 //                                     </span>
 //                                 </Card.Text>

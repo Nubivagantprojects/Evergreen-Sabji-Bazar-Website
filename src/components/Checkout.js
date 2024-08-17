@@ -44,7 +44,7 @@ const Checkout = () => {
 
   useEffect(() => {
     const getProduct = async () => {
-      console.log('Fetching product with ID:', productId);
+      // console.log('Fetching product with ID:', productId);
       const productData = await fetchProduct(productId);
       setProduct(productData);
     };

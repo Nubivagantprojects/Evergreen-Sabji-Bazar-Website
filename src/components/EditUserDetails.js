@@ -132,7 +132,7 @@ const EditUserDetails = ({ userData, onUpdate }) => {
           onChange={handleChange}
         />
       </div>
-      <button type="submit">Update Details</button>
+      <button type="submit" className='btn-password'>Update Details</button>
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
     </form>

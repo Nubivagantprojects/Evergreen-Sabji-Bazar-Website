@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { auth, db } from '../firebase'; // Import Firebase authentication and Firestore instance
+import { auth, db } from '../firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import './CSS/MyAccount.css';
 import EditUserDetails from './EditUserDetails';
@@ -17,7 +17,6 @@ const MyAccount = () => {
     const fetchUserData = async () => {
       try {
         if (userEmail) {
-          // Fetch user data using email as document ID
           const userDocRef = doc(db, 'user', userEmail);
           const docSnap = await getDoc(userDocRef);
 
@@ -67,32 +66,39 @@ const MyAccount = () => {
 
   return (
     <div className="my-account-container">
-      <h2>My Account</h2>
-      <p><span>Email:</span> {userData.email}</p>
-      <p><span>Name:</span> {userData.customername}</p>
-      <p><span>Phone:</span> {userData.phone}</p>
-      <p><span>Gender:</span> {userData.gender}</p>
-      <p><span>PIN:</span> {userData.pin}</p>
-      <p><span>Country:</span> {userData.country}</p>
-      <p><span>State:</span> {userData.state}</p>
-      <p><span>District:</span> {userData.dist}</p>
-      <p><span>Locality:</span> {userData.locality}</p>
-      <p><span>Address:</span> {userData.add1}</p>
-      {/* Add more fields as needed */}
-
-      <button onClick={handleEditToggle}>
-        {isEditing ? 'Cancel Editing' : 'Edit Details'}
-      </button>
-      <button onClick={handlePasswordToggle}>
-        {isChangingPassword ? 'Cancel Change Password' : 'Change Password'}
-      </button>
+      <div className="user-info-card">
+        <h2>My Account</h2>
+        <p><span>Email:</span> {userData.email}</p>
+        <p><span>Name:</span> {userData.customername}</p>
+        <p><span>Phone:</span> {userData.phone}</p>
+        <p><span>Gender:</span> {userData.gender}</p>
+        <p><span>PIN:</span> {userData.pin}</p>
+        <p><span>Country:</span> {userData.country}</p>
+        <p><span>State:</span> {userData.state}</p>
+        <p><span>District:</span> {userData.dist}</p>
+        <p><span>Locality:</span> {userData.locality}</p>
+        <p><span>Address:</span> {userData.add1}</p>
+      </div>
+      
+      <div className="button-group">
+        <button className="btn-edit" onClick={handleEditToggle}>
+          {isEditing ? 'Cancel Editing' : 'Edit Details'}
+        </button>
+        <button className="btn-password" onClick={handlePasswordToggle}>
+          {isChangingPassword ? 'Cancel Change Password' : 'Change Password'}
+        </button>
+      </div>
 
       {isEditing && (
-        <EditUserDetails userData={userData} onUpdate={handleUserUpdate} />
+        <div className="form-section">
+          <EditUserDetails userData={userData} onUpdate={handleUserUpdate} />
+        </div>
       )}
 
       {isChangingPassword && (
-        <ChangePassword />
+        <div className="form-section">
+          <ChangePassword />
+        </div>
       )}
     </div>
   );
