@@ -67,11 +67,39 @@ const Checkout = () => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
+  const fetchRazorpayKey = async () => {
+    try {
+      // Replace 'banners' and 'razorpay' with your actual collection and document ID
+      const bannerDocRef = doc(db, 'Banners', 'razorpay');
+      const bannerDoc = await getDoc(bannerDocRef);
+
+      if (bannerDoc.exists()) {
+        const bannerData = bannerDoc.data();
+        const razorpayKeyId = bannerData.key_id; // Replace 'key_id' with your actual field name
+        return razorpayKeyId;
+      } else {
+        console.log('No such document!');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching Razorpay key:', error);
+      return null;
+    }
+  };
+  var key_id;
+  fetchRazorpayKey().then(keyId => {
+    if (keyId) {
+      // Initialize Razorpay with the fetched key
+      // console.log('Razorpay Key ID:', keyId);
+      key_id = keyId;
+      // Initialize Razorpay here
+    }
+  });
 
   const handlePayment = () => {
 
     const options = {
-      key: 'rzp_test_31wiWLVJekIJyP',
+      key: key_id,
       amount: product.item_price * 100,
       currency: 'INR',
       name: 'Evergreen Sabji Bazar',
@@ -109,8 +137,8 @@ const Checkout = () => {
             transit_status: '0',
             user: `${userData.email}`,
             verification: '1',
-            ordered_at:currentDateTime,
-            updated_at:currentDateTime,
+            ordered_at: currentDateTime,
+            updated_at: currentDateTime,
             z1: '1',
             pname: `${product.item_name}`,
             pid: `${productId}`,

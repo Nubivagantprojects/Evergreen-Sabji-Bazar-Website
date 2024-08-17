@@ -54,6 +54,34 @@ const CheckoutCart = () => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
+    const fetchRazorpayKey = async () => {
+        try {
+            // Replace 'banners' and 'razorpay' with your actual collection and document ID
+            const bannerDocRef = doc(db, 'Banners', 'razorpay');
+            const bannerDoc = await getDoc(bannerDocRef);
+
+            if (bannerDoc.exists()) {
+                const bannerData = bannerDoc.data();
+                const razorpayKeyId = bannerData.key_id; // Replace 'key_id' with your actual field name
+                return razorpayKeyId;
+            } else {
+                console.log('No such document!');
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching Razorpay key:', error);
+            return null;
+        }
+    };
+    var key_id;
+    fetchRazorpayKey().then(keyId => {
+        if (keyId) {
+            // Initialize Razorpay with the fetched key
+            // console.log('Razorpay Key ID:', keyId);
+            key_id = keyId;
+            // Initialize Razorpay here
+        }
+    });
 
     const handlePayment = () => {
         const fullAddress = `${formData.address}, ${formData.locality}, ${formData.dist}, ${formData.state}, ${formData.pin}`;
@@ -62,7 +90,7 @@ const CheckoutCart = () => {
         const currentDateTime = now.toLocaleString();
 
         const options = {
-            key: 'rzp_test_31wiWLVJekIJyP',
+            key: key_id,
             amount: totalAmount * 100, // in paisa, multiply by 100
             currency: 'INR',
             name: 'Evergreen Sabji Bazar',
