@@ -31,16 +31,22 @@ const ProductDetails = () => {
     setAlert({ type, message });
     setTimeout(() => {
       setAlert({ type: '', message: '' });
-    }, 1000); // Dismiss alert after 1 second (1000 milliseconds)
+    }, 3000); // Dismiss alert after 1 second (1000 milliseconds)
   };
 
   const handleBuyNow = (product) => {
     const user = auth.currentUser;
-    if (user)
-      navigate(`/checkout/${product.id}`, { state: { product } });
-    else
+    if (user) {
+      if (Number(product.item_price) >= 199) {
+        navigate(`/checkout/${product.id}`, { state: { product } });
+      } else {
+        showAlertWithAutoDismiss('danger', 'Product price must be greater than ₹199 to proceed with checkout');
+      }
+    } else {
       window.alert("Please Login first");
+    }
   };
+  
 
   const handleCart = async (item) => {
     const user = auth.currentUser;
